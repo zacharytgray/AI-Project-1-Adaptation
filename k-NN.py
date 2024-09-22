@@ -18,7 +18,7 @@ def readData(filePath):
 
 # kNN algorithm
 def knn(trainData, testInstance, k):
-    distances = []
+    distances = [] # Store the distances between the test instance and each training instance
     for label, (x, y), _ in trainData:
         dist = np.sqrt((x - testInstance[0])**2 + (y - testInstance[1])**2) # Euclidean distance
         distances.append((dist, label))
@@ -48,9 +48,9 @@ def trainModel(trainData, k, storeAll):
         return storage
 
 # Evaluate the model
-def evaluateModel(trainData, testData, k):
-    yTrue = [label for label, _, _ in testData] # Labels in the test data
-    yPred = [knn(trainData, instance, k) for _, instance, _ in testData] # Predicted labels
+def evaluateModel(trainData, data, k):
+    yTrue = [label for label, _, _ in data] # Labels in the test data
+    yPred = [knn(trainData, instance, k) for _, instance, _ in data] # Predicted labels
     return accuracy_score(yTrue, yPred)
 
 # N-fold cross-validation
@@ -60,7 +60,7 @@ def crossValidation(data, N, k, storeAll):
     testAccuracies = []
     
     for trainIndex, testIndex in kf.split(data): # each block is a tuple of train and test indices
-        trainData = [data[i] for i in trainIndex]
+        trainData = [data[i] for i in trainIndex] 
         testData = [data[i] for i in testIndex]
         
         model = trainModel(trainData, k, storeAll)
