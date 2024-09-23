@@ -44,6 +44,9 @@ def simulatedAnnealing(problem, schedule, x0, stoppingIter, rangeMin, rangeMax, 
         if not fC(nextSolution):
             continue
         
+        # Clip the neighbor values within the specified range
+        nextSolution = np.clip(nextSolution, rangeMin, rangeMax)
+        
         # Convert neighbor to bitstring and back to real values
         nextSolutionBitstrings = [realToBitstring(val, rangeMin, rangeMax, bitLength) for val in nextSolution]
         nextSolutionReals = np.array([bitstringToReal(bs, rangeMin, rangeMax) for bs in nextSolutionBitstrings])
@@ -69,6 +72,10 @@ def simulatedAnnealing(problem, schedule, x0, stoppingIter, rangeMin, rangeMax, 
 # Exponential Schedule function
 def exponentialSchedule(t, T0=1000, alpha=0.96):
     return T0 * (alpha ** t)
+
+# Logarithmic Schedule function
+def logarithmicSchedule(t, T0=1000, c=1):
+    return T0 / (1 + c * np.log(1 + t))
 
 # Define the ranges for each problem
 problemRanges = {
@@ -102,6 +109,6 @@ if __name__ == '__main__':
     for f, fC, name in problems: # f is the function, fC is the constraint function, name is the problem name
         rangeMin, rangeMax = problemRanges[name]
         x0 = np.random.uniform(rangeMin, rangeMax, size=(2,)) # Initial solution within the specified range
-        bestSolution, bestValue = simulatedAnnealing((f, fC), exponentialSchedule, x0, stoppingIter, rangeMin, rangeMax) 
+        bestSolution, bestValue = simulatedAnnealing((f, fC), logarithmicSchedule, x0, stoppingIter, rangeMin, rangeMax) 
         print(f"Best solution for {f.__name__}: {bestSolution}")
         print(f"Best value for {f.__name__}: {bestValue}\n")

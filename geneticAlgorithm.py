@@ -43,14 +43,14 @@ def geneticAlgorithm(population, fitness, mutationProbability, maxGenerations):
             mutated[index] = '1' if mutated[index] == '0' else '0'
         return ''.join(mutated)
 
-    for generation in range(maxGenerations):
+    for _ in range(maxGenerations):
         weights = [1 / (fitness(individual) + 1e-6) for individual in population]  # Inverse of fitness for minimization
         population2 = []
 
         for _ in range(len(population)):
             parent1, parent2 = weightedRandomChoices(population, weights)
-            # child = doSinglePointCrossover(parent1, parent2)
-            child = doUniformCrossover(parent1, parent2)
+            child = doSinglePointCrossover(parent1, parent2)
+            # child = doUniformCrossover(parent1, parent2)
             if random.random() < mutationProbability:
                 child = mutate(child)
             population2.append(child)
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     dimensions = 2
     bitLength = 52
     maxGenerations = 1000
-    mutationProbability = 0.05
+    mutationProbability = 0.02
 
     # Define the problems
     problems = [

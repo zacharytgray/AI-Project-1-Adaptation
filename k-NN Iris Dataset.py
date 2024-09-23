@@ -82,8 +82,8 @@ def crossValidation(data, N, k, storeAll):
 if __name__ == "__main__":
     filePath = "Iris Dataset/iris.data"
     data = readData(filePath) # formatted as (label, (x1, x2, x3, x4))
-    N = 5 # Number of folds
-    k = 3 # Number of nearest neighbors to consider
+    N = 7 # Number of folds
+    k = 5 # Number of nearest neighbors to consider
     storeAll = False # Change to True to store all instances, or False to store k-nearest neighbors
     
     avgTrainAccuracy, avgTestAccuracy = crossValidation(data, N, k, storeAll)
