@@ -208,6 +208,51 @@ def bump_c(x):
     np.prod(x) >= 0.75\
         and np.sum(x) <= 7.5 * len(x)
 
+
+################################################################
+###################### CUSTOM FUNCTIONS ########################
+################################################################
+
+def rastrigin(x):
+    """
+    Rastrigin's function. A non-convex function with many local minima.
+
+    Range: x_i in (-5.12, 5.12)
+
+    :param numpy.ndarray x: The input vector
+    """
+    n = len(x)
+    A = 10
+    return A * n + sum([(xi**2 - A * np.cos(2 * np.pi * xi)) for xi in x])
+
+def rastrigin_c(x):
+    return np.all(np.logical_and(
+        x >= -5.12,
+        x <= 5.12
+    ))
+    
+################################################################
+
+def ackley(x):
+    """
+    Ackley's function. A widely used test problem for optimization algorithms.
+
+    Range: x_i in (-32.768, 32.768)
+
+    :param numpy.ndarray x: The input vector
+    """
+    n = len(x)
+    term1 = -20 * np.exp(-0.2 * np.sqrt(sum(xi**2 for xi in x) / n))
+    term2 = -np.exp(sum(np.cos(2 * np.pi * xi) for xi in x) / n)
+    return term1 + term2 + 20 + np.e
+
+def ackley_c(x):
+    return np.all(np.logical_and(
+        x >= -32.768,
+        x <= 32.768
+    ))
+    
+    
 ################################################################
 
 def _mesh(x_min, x_max, y_min, y_max):
@@ -252,3 +297,5 @@ if __name__ == '__main__':
     _plot_f(langermann, *_mesh(0, 10, 0, 10), title="Langermann's function")
     _plot_f(odd_square, *_mesh(-5 * np.pi, 5 * np.pi, -5 * np.pi, 5 * np.pi), title="Odd Square Function")
     _plot_f(bump, *_mesh(0.1, 5, 0.1, 5), title="The Bump Function")
+    _plot_f(rastrigin, *_mesh(-5.12, 5.12, -5.12, 5.12), title="Rastrigin's Function") # Custom function
+    _plot_f(ackley, *_mesh(-32.768, 32.768, -32.768, 32.768), title="Ackley's Function") # Custom function

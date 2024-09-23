@@ -80,7 +80,9 @@ if __name__ == '__main__':
         (gae.micha, gae.micha_c, 'micha', (-100, 100)),
         (gae.langermann, gae.langermann_c, 'langermann', (0, 10)),
         (gae.odd_square, gae.odd_square_c, 'odd_square', (-5 * np.pi, 5 * np.pi)),
-        (gae.bump, gae.bump_c, 'bump', (0, 100))
+        (gae.bump, gae.bump_c, 'bump', (0, 100)),
+        (gae.rastrigin, gae.rastrigin_c, 'rastrigin', (-5.12, 5.12)),
+        (gae.ackley, gae.ackley_c, 'ackley', (-32.768, 32.768)),
     ]
 
     for f, fC, name, (rangeMin, rangeMax) in problems:

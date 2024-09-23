@@ -78,7 +78,9 @@ problemRanges = {
     'micha': (-100, 100),
     'langermann': (0, 10),
     'odd_square': (-5 * np.pi, 5 * np.pi),
-    'bump': (0, 100)
+    'bump': (0, 100),
+    'rastrigin': (-5.12, 5.12),
+    'ackley': (-32.768, 32.768),
 }
 
 if __name__ == '__main__':
@@ -92,7 +94,9 @@ if __name__ == '__main__':
         (gae.micha, gae.micha_c, 'micha'),
         (gae.langermann, gae.langermann_c, 'langermann'),
         (gae.odd_square, gae.odd_square_c, 'odd_square'),
-        (gae.bump, gae.bump_c, 'bump')
+        (gae.bump, gae.bump_c, 'bump'),
+        (gae.rastrigin, gae.rastrigin_c, 'rastrigin'),
+        (gae.ackley, gae.ackley_c, 'ackley'),
     ]
 
     for f, fC, name in problems: # f is the function, fC is the constraint function, name is the problem name
